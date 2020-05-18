@@ -1,45 +1,47 @@
 package com.example.popularmovieskotlin.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.popularmovieskotlin.R
-import com.example.popularmovieskotlin.api.MovieApi
-import com.example.popularmovieskotlin.api.MovieApiService
-import com.example.popularmovieskotlin.api.MovieRepository
-import com.example.popularmovieskotlin.model.MovieResults
 import com.example.popularmovieskotlin.vm.MainActivityViewModel
-
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainActivityViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        initViews()
+        initViewModel()
+    }
 
+
+    fun initViews() {
         fab.setOnClickListener { view ->
-            initViews()
+            viewModel.getMovies()
         }
 
 
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
 
-    fun initViews() {
-
-
+        viewModel.error.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
     }
+
+}
+
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.

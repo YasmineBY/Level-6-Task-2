@@ -14,9 +14,9 @@ import retrofit2.Response
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val movieRepositry: MovieRepository = MovieRepository()
-    private val movie = MutableLiveData<Movie>()
-    private val error = MutableLiveData<String>()
+     val movieRepositry: MovieRepository = MovieRepository()
+     val movie = MutableLiveData<Movie>()
+     val error = MutableLiveData<String>()
 
 
     fun getMovies() {
