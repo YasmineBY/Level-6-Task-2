@@ -10,11 +10,16 @@ import com.example.popularmovieskotlin.api.MovieRepository
 import com.example.popularmovieskotlin.model.MovieResults
 
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
+    var baseUrl: String = "https://api.themoviedb.org"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    var baseUrl: String = "https://api.themoviedb.org"
     //todo make retrofit call
     fun initViews() {
         val error = MutableLiveData<String>()
@@ -38,38 +42,33 @@ class MainActivity : AppCompatActivity() {
         //Api key: d0bd4d0326159e106f1f1cd105382a5f
         //https://api.themoviedb.org/3/movie/550?api_key=d0bd4d0326159e106f1f1cd105382a5f
 
-        val movieApi: MovieApiService = MovieApi.createApi()
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        var movieApiService: MovieApiService = retrofit.create(MovieApiService::class.java)
 
-        movieApi.getMovie().equals(object : Callback<MovieResults> {
-        override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
-            if (response.isSuccessful){
-                val temp =response.body()
+
+        movieApiService.getMovie().enqueue(object : Callback<MovieResults> {
+            override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
+                if (response.isSuccessful) {
+                    val temp = response.body()
+                } else error.value = "An error occurred: ${response.errorBody().toString()}"
             }
-            else error.value = "An error occurred: ${response.errorBody().toString()}"
-        }
+
             override fun onFailure(call: Call<MovieResults>, t: Throwable) {
                 error.value = t.message
             }
         })
 
-//        numbersRepository.getRandomNumberTrivia().enqueue(object : Callback<Trivia> {
-//            override fun onResponse(call: Call<Trivia>, response: Response<Trivia>) {
-//                if (response.isSuccessful) trivia.value = response.body()
-//                else error.value = "An error occurred: ${response.errorBody().toString()}"
-//            }
-//
-//            override fun onFailure(call: Call<Trivia>, t: Throwable) {
-//                error.value = t.message
-//            }
-//        })
+
     }
 
- }
-
-
-
-
-
+}
 
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
