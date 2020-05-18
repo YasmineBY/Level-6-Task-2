@@ -1,7 +1,7 @@
 package com.example.popularmovieskotlin.api
 
 class MovieRepository {
-    private val movieApi: MovieApiService = MovieApi.createApi()
+    private val movieApiService: MovieApiService = MovieApi.createApi()
 
-    fun getMovie() = movieApi.getMovie()
+    fun getMovies() = movieApiService.getMovies()
 }

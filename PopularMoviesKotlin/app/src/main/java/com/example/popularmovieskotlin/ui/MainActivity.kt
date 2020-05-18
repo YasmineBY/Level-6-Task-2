@@ -8,6 +8,7 @@ import com.example.popularmovieskotlin.api.MovieApi
 import com.example.popularmovieskotlin.api.MovieApiService
 import com.example.popularmovieskotlin.api.MovieRepository
 import com.example.popularmovieskotlin.model.MovieResults
+import com.example.popularmovieskotlin.vm.MainActivityViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
@@ -19,7 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    var baseUrl: String = "https://api.themoviedb.org"
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,41 +36,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    //todo make retrofit call
     fun initViews() {
-        val error = MutableLiveData<String>()
-        val movieRepository = MovieRepository()
-        //Api key: d0bd4d0326159e106f1f1cd105382a5f
-        //https://api.themoviedb.org/3/movie/550?api_key=d0bd4d0326159e106f1f1cd105382a5f
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        var movieApiService: MovieApiService = retrofit.create(MovieApiService::class.java)
-
-
-        movieApiService.getMovie().enqueue(object : Callback<MovieResults> {
-            override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
-                if (response.isSuccessful) {
-                    val temp = response.body()
-                } else error.value = "An error occurred: ${response.errorBody().toString()}"
-            }
-
-            override fun onFailure(call: Call<MovieResults>, t: Throwable) {
-                error.value = t.message
-            }
-        })
 
 
     }
-
-}
-
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.
@@ -86,4 +56,35 @@ class MainActivity : AppCompatActivity() {
 //            else -> super.onOptionsItemSelected(item)
 //        }
 //    }
+//}
+//fun initViews() {
+//    val error = MutableLiveData<String>()
+//    val movieRepository = MovieRepository()
+//    //Api key: d0bd4d0326159e106f1f1cd105382a5f
+//    //https://api.themoviedb.org/3/movie/550?api_key=d0bd4d0326159e106f1f1cd105382a5f
+//
+//    val okHttpClient = OkHttpClient.Builder()
+//        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//        .build()
+//    val retrofit = Retrofit.Builder()
+//        .baseUrl(baseUrl)
+//        .client(okHttpClient)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//    var movieApiService: MovieApiService = retrofit.create(MovieApiService::class.java)
+//
+//
+//    movieApiService.getMovie().enqueue(object : Callback<MovieResults> {
+//        override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
+//            if (response.isSuccessful) {
+//                val temp = response.body()
+//            } else error.value = "An error occurred: ${response.errorBody().toString()}"
+//        }
+//
+//        override fun onFailure(call: Call<MovieResults>, t: Throwable) {
+//            error.value = t.message
+//        }
+//    })
+//
+//
 //}

@@ -12,7 +12,7 @@ interface MovieApiService {
 
 
     @GET("/3/discover/movie?api_key=d0bd4d0326159e106f1f1cd105382a5f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
-    fun getMovie(): Call<MovieResults>
+    fun getMovies(): Call<MovieResults>
 
 //
 //    @GET("/3/discover/movie")

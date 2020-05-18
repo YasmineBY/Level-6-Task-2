@@ -14,7 +14,6 @@ class MovieApi {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
 
-            // Create the Retrofit instance
             val movieApi = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
