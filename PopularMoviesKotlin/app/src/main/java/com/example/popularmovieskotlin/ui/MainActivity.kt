@@ -2,16 +2,23 @@ package com.example.popularmovieskotlin.ui
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieskotlin.R
+import com.example.popularmovieskotlin.model.Movie
 import com.example.popularmovieskotlin.vm.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var movies: ArrayList<Movie>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var movieAdapter: MovieAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
 
         viewModel.error.observe(this, Observer {
@@ -40,8 +47,31 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-}
 
+    private fun initalizeRecyclerView() {
+
+        recyclerView = findViewById(R.id.rvMovies)
+        movies = arrayListOf()
+        movieAdapter = MovieAdapter(movies)
+        viewManager = LinearLayoutManager(this)
+//        createItemTouchHelper().attachToRecyclerView(recyclerView)
+//
+//        recyclerView.addItemDecoration(
+//            DividerItemDecoration (
+//                this@MainActivity,
+//                DividerItemDecoration.VERTICAL
+//            )
+//        )
+
+//        observeViewModel()
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = movieAdapter
+        }
+    }
+
+}
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.
