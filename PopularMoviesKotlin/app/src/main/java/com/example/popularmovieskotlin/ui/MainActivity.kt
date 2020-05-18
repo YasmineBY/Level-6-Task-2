@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.example.popularmovieskotlin.R
 import com.example.popularmovieskotlin.model.Movie
 import com.example.popularmovieskotlin.vm.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.movie_item.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,9 +40,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun observeViewModel() {
+        viewModel.listOfMovies.observe(this, Observer {
+                movies ->
+            this@MainActivity.movies.clear()
+            this@MainActivity.movies.addAll(movies)
+            movieAdapter.notifyDataSetChanged()
+        })
+    }
+
     private fun initViewModel() {
 //        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
+        viewModel.movie.observe(this, Observer {
+            txtMovieName.text = it.movieTitle
+        })
 
         viewModel.error.observe(this, Observer {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
@@ -54,16 +68,7 @@ class MainActivity : AppCompatActivity() {
         movies = arrayListOf()
         movieAdapter = MovieAdapter(movies)
         viewManager = LinearLayoutManager(this)
-//        createItemTouchHelper().attachToRecyclerView(recyclerView)
-//
-//        recyclerView.addItemDecoration(
-//            DividerItemDecoration (
-//                this@MainActivity,
-//                DividerItemDecoration.VERTICAL
-//            )
-//        )
 
-//        observeViewModel()
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
