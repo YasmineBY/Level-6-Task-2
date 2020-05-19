@@ -33,20 +33,19 @@ class MainActivity : AppCompatActivity() {
 
 
     fun initViews() {
+        initalizeRecyclerView()
         fab.setOnClickListener { view ->
             viewModel.getMovies()
         }
-
-
     }
 
     private fun observeViewModel() {
-        viewModel.listOfMovies.observe(this, Observer {
-                movies ->
-            this@MainActivity.movies.clear()
-            this@MainActivity.movies.addAll(movies)
-            movieAdapter.notifyDataSetChanged()
-        })
+//        viewModel.listOfMovies.observe(this, Observer {
+//                movies ->
+//            this@MainActivity.movies.clear()
+//            this@MainActivity.movies.addAll(movies)
+//            movieAdapter.notifyDataSetChanged()
+//        })
     }
 
     private fun initViewModel() {
@@ -68,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         movies = arrayListOf()
         movieAdapter = MovieAdapter(movies)
         viewManager = LinearLayoutManager(this)
+
+        observeViewModel()
 
         recyclerView.apply {
             setHasFixedSize(true)
