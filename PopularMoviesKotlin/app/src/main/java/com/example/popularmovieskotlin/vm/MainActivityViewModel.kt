@@ -13,10 +13,9 @@ import retrofit2.Response
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
+//
 
-//    val listOfMovies: MutableLiveData<List<Movie>> = MutableLiveData<List<Movie>>().apply {
-//       value =  getMovies()
-//    }
+    val listOfMovies = MutableLiveData<List<Movie>>()
 
     val movieRepositry: MovieRepository = MovieRepository()
     val movie = MutableLiveData<Movie>()
@@ -28,8 +27,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
                 if (response.isSuccessful) {
                     var movieResults = response.body()
-
-                    var movieList = movieResults?.results
+                    listOfMovies.value= movieResults?.results
                 } else error.value = "An error occurred: ${response.errorBody().toString()}"
             }
 
