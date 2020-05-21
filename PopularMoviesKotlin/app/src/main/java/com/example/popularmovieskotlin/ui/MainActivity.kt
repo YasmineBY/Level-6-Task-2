@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieskotlin.R
 import com.example.popularmovieskotlin.model.Movie
 import com.example.popularmovieskotlin.vm.MainActivityViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.movie_item.*
 
 
@@ -22,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val viewModel: MainActivityViewModel by viewModels()
+//    private  var movieAdapter: MovieAdapter(movies,{ movies -> onMovieClick(movies) } )
     private lateinit var movieAdapter: MovieAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         initViewModel()
     }
 
+    private fun onMovieClick(movie: Movie) {
+        Snackbar.make(rvMovies, "This color is:", Snackbar.LENGTH_LONG).show()
+    }
 
     fun initViews() {
         initalizeRecyclerView()
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvMovies)
         movies = arrayListOf()
-        movieAdapter = MovieAdapter(movies)
+        movieAdapter = MovieAdapter(movies,{ movies -> onMovieClick(movies) } )
         viewManager = GridLayoutManager(this, 2)
 
         observeViewModel()
@@ -78,6 +85,8 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
         }
     }
+
+
 
 }
 
