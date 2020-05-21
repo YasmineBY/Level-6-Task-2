@@ -19,9 +19,7 @@ class MovieAdapter(private val movies: List<Movie>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
             itemView.txtMovieName.text = movie.movieTitle
-            Glide.with(context).load(movie.getBackdropImage()).into(itemView.ivImagePreview)
-
-//            Glide.with(context).load(movie.getImageUrl()).into(itemView.ivColor)
+            Glide.with(context).load(movie.getPosterImage()).into(itemView.ivImagePreview)
         }
     }
 
@@ -38,5 +36,4 @@ class MovieAdapter(private val movies: List<Movie>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movies[position])
     }
-
 }

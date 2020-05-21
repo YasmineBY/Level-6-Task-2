@@ -1,11 +1,13 @@
 package com.example.popularmovieskotlin.ui
 
 import android.os.Bundle
+import android.widget.GridLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieskotlin.R
@@ -66,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvMovies)
         movies = arrayListOf()
         movieAdapter = MovieAdapter(movies)
-        viewManager = LinearLayoutManager(this)
+        viewManager = GridLayoutManager(this, 2)
 
         observeViewModel()
 
