@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ViewMovieActivity">
+
     <ImageView
         android:id="@+id/ivBackdrop"
-        android:layout_width="406dp"
-        android:layout_height="103dp"
+        android:layout_width="414dp"
+        android:layout_height="232dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,11 +17,11 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivMoviePoster"
         android:layout_width="122dp"
         android:layout_height="179dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="268dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,50 +29,37 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/txtMovieNameDetails"
-        android:layout_width="116dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="148dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.579"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textRating"
+        android:id="@+id/txtRating"
         android:layout_width="84dp"
         android:layout_height="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="104dp"
         android:text="rating"
         android:textColor="#207BB8"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDate" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="94dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/txtDate"
+        android:layout_width="178dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
         android:text="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
         app:layout_constraintTop_toBottomOf="@+id/txtMovieNameDetails" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/textRating"
-        app:layout_constraintHorizontal_bias="0.694"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtRating"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/txtDate"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <TextView
@@ -79,25 +67,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:text="Overview"
+        android:layout_marginTop="32dp"
+        android:text="@string/overview"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/ivMoviePoster" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="394dp"
-        android:layout_height="313dp"
+        android:id="@+id/txtOverview"
+        android:layout_width="399dp"
+        android:layout_height="227dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:text="LOREM DEL IPSUM"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/txtMovieNameDetails"
+        android:layout_width="176dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="268dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toEndOf="@+id/ivMoviePoster"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

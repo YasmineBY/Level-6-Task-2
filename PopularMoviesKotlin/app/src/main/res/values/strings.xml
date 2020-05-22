@@ -5,6 +5,7 @@
     <string name="popularMovies">The most popular movies of</string>
     <string name="year">year</string>
     <string name="submit">submit</string>
+    <string name="overview">Overview</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>

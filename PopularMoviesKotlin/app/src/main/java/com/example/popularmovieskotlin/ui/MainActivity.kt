@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         val editor = prefs.edit()
         editor.putString("NAME", movie.movieTitle)
         editor.putString("RATING", movie.voteAverage)
+        //TODO LOOK AT DATE (THIS IS NOT FORMAT THAT IS NEEDED)
+        editor.putString("DATE", movie.releaseDate.toString())
         editor.putString("OVERVIEW", movie.Overview)
         editor.putString("POSTER_PATH", movie.posterPath)
         editor.putString("BACKDROP_PATH", movie.backdropPath)

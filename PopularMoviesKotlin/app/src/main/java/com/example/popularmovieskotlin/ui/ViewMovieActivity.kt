@@ -2,10 +2,12 @@ package com.example.popularmovieskotlin.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.example.popularmovieskotlin.R
 import com.example.popularmovieskotlin.model.Movie
 import kotlinx.android.synthetic.main.activity_view_movie.*
 import kotlinx.android.synthetic.main.movie_item.*
+import kotlinx.android.synthetic.main.movie_item.view.*
 
 class ViewMovieActivity : AppCompatActivity() {
 
@@ -20,14 +22,23 @@ class ViewMovieActivity : AppCompatActivity() {
     }
 
     private fun displayMovies()  {
+//
+
         val prefs = this.getSharedPreferences(MOVIE_DETAILS, 0)
-        var moviename = prefs.getString("NAME", "")
-        println(moviename)
-        txtMovieNameDetails.setText(moviename)
-//        editor.putString("NAME", movie.movieTitle)
-//        editor.putString("RATING", movie.voteAverage)
-//        editor.putString("OVERVIEW", movie.Overview)
-//        editor.putString("POSTER_PATH", movie.posterPath)
-//        editor.putString("BACKDROP_PATH", movie.backdropPath)
+
+        var posterPath = prefs.getString("POSTER_PATH", "")
+        var backdropPath = prefs.getString("BACKDROP_PATH", "")
+
+
+        txtMovieNameDetails.setText(prefs.getString("NAME", ""))
+        //TODO add date to the shared preferences manager
+        txtDate.setText(prefs.getString("NAME", ""))
+        txtOverview.setText(prefs.getString("OVERVIEW", ""))
+        txtRating.setText(prefs.getString("RATING", ""))
+        txtDate.setText(prefs.getString("DATE", ""))
+
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500/${posterPath}").into(ivMoviePoster)
+        Glide.with(this).load("https://image.tmdb.org/t/p/original/${backdropPath}").into(ivBackdrop)
+
     }
 }

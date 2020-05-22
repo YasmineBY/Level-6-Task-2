@@ -19,8 +19,6 @@ data class Movie (
     var voteAverage: String,
     @SerializedName("release_date")
     var releaseDate: Date
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Long? = null
     )
 
 {
