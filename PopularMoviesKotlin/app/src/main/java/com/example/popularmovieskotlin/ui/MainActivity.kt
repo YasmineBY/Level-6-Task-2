@@ -1,16 +1,16 @@
 package com.example.popularmovieskotlin.ui
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.GridLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieskotlin.R
+import com.example.popularmovieskotlin.adapter.MovieAdapter
 import com.example.popularmovieskotlin.model.Movie
 import com.example.popularmovieskotlin.vm.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.movie_item.*
 
+const val MOVIE_DETAILS = "movie_details"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var movies: ArrayList<Movie>
@@ -39,13 +40,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMovieClick(movie: Movie) {
         Snackbar.make(rvMovies, "This color is:", Snackbar.LENGTH_LONG).show()
+        val prefs = this.getSharedPreferences(MOVIE_DETAILS, 0)
+        val editor = prefs.edit()
+        editor.putString("NAME", movie.movieTitle)
+        editor.putString("RATING", movie.voteAverage)
+        editor.putString("OVERVIEW", movie.Overview)
+        editor.putString("POSTER_PATH", movie.posterPath)
+        editor.putString("BACKDROP_PATH", movie.backdropPath)
+        editor.commit()
+
+        val intent = Intent(this, ViewMovieActivity::class.java)
+        startActivity(intent)
     }
 
     fun initViews() {
         initalizeRecyclerView()
-        fab.setOnClickListener { view ->
+        btnSubmit.setOnClickListener { view ->
             viewModel.getMovies()
         }
+
     }
 
     private fun observeViewModel() {
@@ -74,7 +87,9 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvMovies)
         movies = arrayListOf()
-        movieAdapter = MovieAdapter(movies,{ movies -> onMovieClick(movies) } )
+        movieAdapter = MovieAdapter(
+            movies,
+            { movies -> onMovieClick(movies) })
         viewManager = GridLayoutManager(this, 2)
 
         observeViewModel()
@@ -85,9 +100,6 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
         }
     }
-
-
-
 }
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

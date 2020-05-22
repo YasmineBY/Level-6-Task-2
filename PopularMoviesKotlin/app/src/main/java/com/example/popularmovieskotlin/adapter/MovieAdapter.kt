@@ -1,4 +1,4 @@
-package com.example.popularmovieskotlin.ui
+package com.example.popularmovieskotlin.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
