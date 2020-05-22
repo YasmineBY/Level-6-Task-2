@@ -22,8 +22,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val error = MutableLiveData<String>()
 
 
-    fun getMovies() {
-        movieRepositry.getMovies().enqueue(object : Callback<MovieResults> {
+    fun getMovies(year: Int) {
+        movieRepositry.getMovies(year).enqueue(object : Callback<MovieResults> {
             override fun onResponse(call: Call<MovieResults>, response: Response<MovieResults>) {
                 if (response.isSuccessful) {
                     var movieResults = response.body()

@@ -90,8 +90,8 @@
 
     <TextView
         android:id="@+id/txtMovieNameDetails"
-        android:layout_width="176dp"
-        android:layout_height="51dp"
+        android:layout_width="203dp"
+        android:layout_height="87dp"
         android:layout_marginTop="268dp"
         android:text="TextView"
         android:textSize="24sp"

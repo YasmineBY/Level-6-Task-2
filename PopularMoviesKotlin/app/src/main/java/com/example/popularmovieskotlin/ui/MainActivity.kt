@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity() {
     fun initViews() {
         initalizeRecyclerView()
         btnSubmit.setOnClickListener { view ->
-            viewModel.getMovies()
+            var year: Int = etYear.text.toString().toInt()
+            viewModel.getMovies(year)
         }
 
     }
