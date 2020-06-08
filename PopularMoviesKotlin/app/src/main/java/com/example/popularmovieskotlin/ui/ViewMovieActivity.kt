@@ -22,8 +22,8 @@ class ViewMovieActivity : AppCompatActivity() {
     private fun initViews() {
         displayMovies()
     }
- 
-    private fun displayMovies()  {
+
+    private fun displayMovies() {
 
 
         val prefs = this.getSharedPreferences(MOVIE_DETAILS, 0)
@@ -38,7 +38,8 @@ class ViewMovieActivity : AppCompatActivity() {
 
 
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/${posterPath}").into(ivMoviePoster)
-        Glide.with(this).load("https://image.tmdb.org/t/p/original/${backdropPath}").into(ivBackdrop)
+        Glide.with(this).load("https://image.tmdb.org/t/p/original/${backdropPath}")
+            .into(ivBackdrop)
 
     }
 }
