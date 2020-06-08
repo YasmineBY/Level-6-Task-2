@@ -15,15 +15,13 @@ class MovieAdapter(private val movies: List<Movie> , private val onClick: (Movie
 
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     private lateinit var context: Context
-    private var movieNumber: Int = 1
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener { onClick(movies[adapterPosition]) }
         }
         fun bind(movie: Movie) {
-            itemView.txtMovieName.text = movieNumber.toString()
-            movieNumber += 1
+            itemView.txtMovieName.text = (adapterPosition + 1).toString()
             Glide.with(context).load(movie.getPosterImage()).into(itemView.ivImagePreview)
         }
     }
